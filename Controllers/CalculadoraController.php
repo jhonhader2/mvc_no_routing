@@ -9,7 +9,7 @@ class CalculadoraController
 
     public function __construct()
     {
-        switch ($_GET['c']) {
+        switch ($_POST['c']) {
             case '1': //Almacenar en la base de datos
                 self::store();
                 break;

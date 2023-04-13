@@ -14,7 +14,8 @@
         <div class="row">
             <div class="col">
                 <h1>Calculadora</h1>
-                <form action="Controllers/CalculadoraController.php?c=1" method="POST">
+                <form action="Controllers/CalculadoraController.php" method="POST">
+                    <input type="hidden" name="c" value="1">
                     <div class="mb-3">
                         <label for="num_uno" class="form-label">Número Uno</label>
                         <input type="number" class="form-control" id="num_uno" name="num_uno">
