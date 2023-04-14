@@ -1,13 +1,9 @@
 <?php
 
-include_once '../Config/config.php';
-include_once constant('URL') . 'Controllers/CalculadoraController.php?c=';
-// include_once ;
+include_once '../../Models/CalculadoraModel.php';
 
-var_dump(constant('URL') . 'Models/CalculadoraModel.php');
-
-$calculadora = new CalculadoraModel();
-// $calculadora->getAll();
+$data = new CalculadoraModel();
+$registros = $data->getAll();
 
 ?>
 <!DOCTYPE html>
@@ -21,13 +17,14 @@ $calculadora = new CalculadoraModel();
     <title>Calculadora</title>
 </head>
 
-<body class="mt-3">
+<body class="my-3">
     <div class="container">
         <div class="row">
             <div class="col">
                 <h1>Calculadora</h1>
-                <h1>Resultados de las Operaciones</h1>
-                <a href="nuevo.php" class="btn bnt-sm btn-outline-info my-3">Nueva Operación</a>
+                <hr>
+                <h3>Resultados de las Operaciones</h3>
+                <a href="nuevo.php" class="btn btn-sm btn-outline-info my-3">Nueva Operación</a>
                 <a href="http://"></a>
                 <table class="table table-sm table-hover">
                     <thead>
@@ -40,30 +37,33 @@ $calculadora = new CalculadoraModel();
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <?php
-                                if ($this->alumnos) {
-                                    foreach ($this->alumnos as $row) {
-                                ?>
+                        <?php
+                        if ($registros) {
+
+                            foreach ($registros as $row) {
+                        ?>
                                 <tr class="text-center">
-                                    <td><?= $row->nombres ?></td>
-                                    <td><?= $row->apellidos ?></td>
+                                    <td><?= $row->num_uno ?></td>
+                                    <td><?= $row->num_dos ?></td>
+                                    <td><?= $row->operacion ?></td>
+                                    <td><?= $row->resultado ?></td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-info" href="<?= constant('URL') . "alumno/show/" . $row->id ?>">Actualizar</a>
+                                        <a class="btn btn-sm btn-outline-warning" href="<?= $row->id ?>">Actualizar</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-danger" href="<?= constant('URL') . "alumno/destroy/" . $row->id ?>"">Eliminar</a> 
+                                        <a class="btn btn-sm btn-outline-danger" href="<?= $row->id ?>"">Eliminar</a> 
                                 </td>
                             </tr>
                             <?php
-                                    }
-                                } else {
+                            }
+                        } else {
                             ?>
                         <tr class=" text-center">
                                     <td colspan="6">Sin datos</td>
                                 </tr>
                             <?php
-                                }
-                            ?> -->
+                        }
+                            ?>
                     </tbody>
                 </table>
             </div>

@@ -1,13 +1,21 @@
 <?php
 
+include_once dirname(__FILE__).'../../Config/config.php';
 require_once 'DataBaseModel.php';
+
 
 class CalculadoraModel extends stdClass
 {
-    private $num_uno;
-    private $num_dos;
-    private $operacion;
-    private $resultado;
+    public $num_uno;
+    public $num_dos;
+    public $operacion;
+    public $resultado;
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new DataBase();
+    }
 
     public function getAll()
     {
@@ -15,10 +23,9 @@ class CalculadoraModel extends stdClass
 
         try {
 
-            $sql = 'SELECT * FROM operaciones';
+            $sql = 'SELECT operaciones.id, operaciones.num_uno, operaciones.num_dos, OPERADORES.nombre AS operacion, operaciones.resultado FROM operaciones JOIN OPERADORES ON operaciones.operacion = OPERADORES.id';
+            $query  = $this->db->conect()->query($sql);
 
-            $db     = new DataBase();
-            $query  = $db->conect()->query($sql);
 
             while ($row = $query->fetch()) {
                 $item            = new CalculadoraModel();
@@ -45,8 +52,7 @@ class CalculadoraModel extends stdClass
             $resultado = self::resultadoOperacion($datos);
             $sql = 'INSERT INTO operaciones(num_uno, num_dos, operacion, resultado) VALUES(:num_uno, :num_dos, :operacion, :resultado)';
 
-            $db = new DataBase();
-            $prepare = $db->conect()->prepare($sql);
+            $prepare = $this->db->conect()->prepare($sql);
             $query = $prepare->execute([
                 'num_uno'   => $datos['num_uno'],
                 'num_dos'   => $datos['num_dos'],

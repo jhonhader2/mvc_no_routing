@@ -42,7 +42,7 @@ class CalculadoraController
         $result = $calculadora->store($datos);
 
         if ($result) {
-            header("Location: " . constant('URL') . "Views/index.php");
+            header("Location: " . constant('URL') . "Views/calculadora/index.php");
             exit();
         }
 

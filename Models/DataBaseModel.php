@@ -1,14 +1,12 @@
 <?php
 
-require_once '../Config/config.php';
-
 class Database
 {
-    private $host;
-    private $db;
-    private $user;
-    private $password;
-    private $charset;
+    public $host;
+    public $db;
+    public $user;
+    public $password;
+    public $charset;
 
     public function __construct()
     {
