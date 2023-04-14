@@ -15,9 +15,17 @@ class CalculadoraController
                 break;
 
             default:
-                # code...
+                self::index();
                 break;
         }
+    }
+
+    public function index()
+    {
+        $resultados = new CalculadoraModel();
+        $data = $resultados->getAll();
+
+        return $data;
     }
 
     public function store()
@@ -32,7 +40,7 @@ class CalculadoraController
         $result = $calculadora->store($datos);
 
         if ($result) {
-            header("Location: ../index.php");
+            header("Location: ../Views/Calculadora/index.php");
             exit();
         }
 

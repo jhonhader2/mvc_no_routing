@@ -2,17 +2,46 @@
 
 require_once 'DataBaseModel.php';
 
-class CalculadoraModel
+class CalculadoraModel extends stdClass
 {
     private $num_uno;
     private $num_dos;
     private $operacion;
+    private $resultado;
+
+    public function getAll()
+    {
+        $items = [];
+
+        try {
+
+            $sql = 'SELECT * FROM operaciones';
+
+            $db     = new DataBase();
+            $query  = $db->conect()->query($sql);
+
+            while ($row = $query->fetch()) {
+                $item            = new CalculadoraModel();
+                $item->id        = $row['id'];
+                $item->num_uno   = $row['num_uno'];
+                $item->num_dos   = $row['num_dos'];
+                $item->operacion = $row['operacion'];
+                $item->resultado = $row['resultado'];
+
+                array_push($items, $item);
+            }
+
+            return $items;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function store($datos)
     {
-        
+
         try {
-            
+
             $resultado = self::resultadoOperacion($datos);
             $sql = 'INSERT INTO operaciones(num_uno, num_dos, operacion, resultado) VALUES(:num_uno, :num_dos, :operacion, :resultado)';
 
