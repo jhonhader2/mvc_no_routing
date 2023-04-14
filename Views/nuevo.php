@@ -1,5 +1,7 @@
 <?php
-require_once '../../Controllers/CalculadoraController.php';
+    include_once '../Config/config.php';
+    
+
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +19,8 @@ require_once '../../Controllers/CalculadoraController.php';
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="Controllers/CalculadoraController.php" method="POST">
+                <h1>Calculadora</h1>
+                <form action="<?= constant('URL') ?>Controllers/CalculadoraController.php" method="POST">
                     <input type="hidden" name="c" value="1">
                     <div class="mb-3">
                         <label for="num_uno" class="form-label">Número Uno</label>
@@ -43,7 +46,7 @@ require_once '../../Controllers/CalculadoraController.php';
             </div>
         </div>
     </div>
-    <h1>Resultado de las operaciones</h1>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>

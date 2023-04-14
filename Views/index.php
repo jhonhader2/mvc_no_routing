@@ -1,8 +1,13 @@
-<?php 
+<?php
 
-include_once 'Config/config.php';
+include_once '../Config/config.php';
+include_once constant('URL') . 'Controllers/CalculadoraController.php?c=';
+// include_once ;
 
-include_once constant('URL').'Controllers/CalculadoraController.php';
+var_dump(constant('URL') . 'Models/CalculadoraModel.php');
+
+$calculadora = new CalculadoraModel();
+// $calculadora->getAll();
 
 ?>
 <!DOCTYPE html>
@@ -22,7 +27,7 @@ include_once constant('URL').'Controllers/CalculadoraController.php';
             <div class="col">
                 <h1>Calculadora</h1>
                 <h1>Resultados de las Operaciones</h1>
-                <a href="<?php constant('URL')?>nuevo.php" class="btn bnt-sm btn-outline-info my-3" >Nueva Operación</a>
+                <a href="nuevo.php" class="btn bnt-sm btn-outline-info my-3">Nueva Operación</a>
                 <a href="http://"></a>
                 <table class="table table-sm table-hover">
                     <thead>

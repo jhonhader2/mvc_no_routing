@@ -9,14 +9,16 @@ class CalculadoraController
 
     public function __construct()
     {
-        switch ($_POST['c']) {
-            case '1': //Almacenar en la base de datos
-                self::store();
-                break;
+        if (isset($_REQUEST['c'])) {
+            switch ($_REQUEST['c']) {
+                case '1': //Almacenar en la base de datos
+                    self::store();
+                    break;
 
-            default:
-                self::index();
-                break;
+                default:
+                    self::index();
+                    break;
+            }
         }
     }
 
@@ -40,7 +42,7 @@ class CalculadoraController
         $result = $calculadora->store($datos);
 
         if ($result) {
-            header("Location: ../Views/Calculadora/index.php");
+            header("Location: " . constant('URL') . "Views/index.php");
             exit();
         }
 
