@@ -1,11 +1,12 @@
 <?php
 
-include_once dirname(__FILE__).'../../Config/config.php';
+include_once dirname(__FILE__) . '../../Config/config.php';
 require_once 'DataBaseModel.php';
 
 
 class CalculadoraModel extends stdClass
 {
+    private $id;
     public $num_uno;
     public $num_dos;
     public $operacion;
@@ -16,6 +17,38 @@ class CalculadoraModel extends stdClass
     {
         $this->db = new DataBase();
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getbyId($id)
+    {
+        $operacion = [];
+
+        try {
+            $sql = "SELECT * FROM operaciones WHERE id = $id";
+            $query  = $this->db->conect()->query($sql);
+
+
+            while ($row = $query->fetch()) {
+                $item            = new CalculadoraModel();
+                $item->id        = $row['id'];
+                $item->num_uno   = $row['num_uno'];
+                $item->num_dos   = $row['num_dos'];
+                $item->operacion = $row['operacion'];
+                $item->resultado = $row['resultado'];
+
+                array_push($operacion, $item);
+            }
+
+            return $operacion;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     public function getAll()
     {
@@ -58,6 +91,47 @@ class CalculadoraModel extends stdClass
                 'num_dos'   => $datos['num_dos'],
                 'operacion' => $datos['operacion'],
                 'resultado' => $resultado,
+            ]);
+
+            if ($query) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function update($datos)
+    {
+        try {
+
+            $resultado = self::resultadoOperacion($datos);
+            $sql = 'UPDATE operaciones SET num_uno = :num_uno, num_dos = :num_dos, operacion = :operacion, resultado = :resultado WHERE id = :id';
+
+            $prepare = $this->db->conect()->prepare($sql);
+            $query = $prepare->execute([
+                'id'        => $datos['id'],
+                'num_uno'   => $datos['num_uno'],
+                'num_dos'   => $datos['num_dos'],
+                'operacion' => $datos['operacion'],
+                'resultado' => $resultado,
+            ]);
+
+            if ($query) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $sql = "DELETE FROM operaciones WHERE id = :id";
+            $prepare = $this->db->conect()->prepare($sql);
+            $query = $prepare->execute([
+                'id'   => $id,
             ]);
 
             if ($query) {
