@@ -48,22 +48,22 @@ $registros = $data->getAll();
                                     <td><?= $row->operacion ?></td>
                                     <td><?= $row->resultado ?></td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-warning" href="<?= $row->id ?>">Actualizar</a>
+                                        <a class="btn btn-sm btn-outline-warning" href="../../Controllers/CalculadoraController.php?c=2&id=<?= $row->getId() ?>">Actualizar</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-danger" href="<?= $row->id ?>"">Eliminar</a> 
-                                </td>
-                            </tr>
+                                        <a class="btn btn-sm btn-outline-danger" href="../../Controllers/CalculadoraController.php?c=4&id=<?= $row->getId() ?>">Eliminar</a>
+                                    </td>
+                                </tr>
                             <?php
                             }
                         } else {
                             ?>
-                        <tr class=" text-center">
-                                    <td colspan="6">Sin datos</td>
-                                </tr>
-                            <?php
+                            <tr class=" text-center">
+                                <td colspan="6">Sin datos</td>
+                            </tr>
+                        <?php
                         }
-                            ?>
+                        ?>
                     </tbody>
                 </table>
             </div>
