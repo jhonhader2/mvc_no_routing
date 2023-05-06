@@ -11,8 +11,7 @@ class CalculadoraController
     public function __construct()
     {
         $this->calculadora = new CalculadoraModel();
-        var_dump($_REQUEST);
-        echo "<hr>";
+
         if (isset($_REQUEST['c'])) {
             switch ($_REQUEST['c']) {
                 case 1: //Almacenar en la base de datos
@@ -66,7 +65,6 @@ class CalculadoraController
 
     public function update()
     {
-
         $datos = [
             'id'        => $_REQUEST['id'],
             'num_uno'   => $_REQUEST['num_uno'],
@@ -86,7 +84,6 @@ class CalculadoraController
 
     public function delete()
     {
-        // var_dump($_REQUEST);
         $id = $_REQUEST['id'];
         $result = $this->calculadora->delete($id);
         if ($result) {
